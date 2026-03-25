@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Mohtasem Jahan Siddique — Portfolio</title>
+<style>
+  :root {
+    --bg: #0a0e17;
+    --bg2: #111724;
+    --bg3: #182030;
+    --accent: #00d4ff;
+    --accent2: #7c6ff7;
+    --text: #e8edf5;
+    --text2: #8a95a8;
+    --border: rgba(255,255,255,0.07);
+    --radius: 12px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(10,14,23,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between; height: 60px;
+  }
+  .nav-logo { font-weight: 700; font-size: 1rem; letter-spacing: 0.04em; color: var(--accent); }
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a { font-size: 0.875rem; color: var(--text2); transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text); text-decoration: none; }
+
+  /* SECTIONS */
+  section { padding: 5rem 0; }
+  .container { max-width: 900px; margin: 0 auto; padding: 0 2rem; }
+
+  /* HERO */
+  #hero {
+    min-height: 92vh;
+    display: flex; align-items: center;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-inner { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 3rem; }
+  .hero-tag {
+    display: inline-block;
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--accent); border: 1px solid var(--accent);
+    padding: 4px 12px; border-radius: 100px; margin-bottom: 1.25rem;
+  }
+  .hero-name { font-size: clamp(2.2rem, 5vw, 3.6rem); font-weight: 800; line-height: 1.1; color: #fff; margin-bottom: 0.75rem; }
+  .hero-role { font-size: 1.1rem; color: var(--text2); margin-bottom: 1.5rem; }
+  .hero-role span { color: var(--accent2); font-weight: 600; }
+  .hero-desc { color: var(--text2); max-width: 540px; margin-bottom: 2rem; font-size: 0.95rem; }
+  .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; padding: 10px 22px; border-radius: 8px;
+    font-size: 0.875rem; font-weight: 600; transition: opacity 0.2s, transform 0.15s; cursor: pointer;
+  }
+  .btn:hover { opacity: 0.85; transform: translateY(-1px); text-decoration: none; }
+  .btn-primary { background: var(--accent); color: #0a0e17; }
+  .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  .avatar-box {
+    width: 160px; height: 160px; border-radius: 16px;
+    background: linear-gradient(135deg, #1a2540, #0d1525);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .avatar-initials { font-size: 3rem; font-weight: 800; color: var(--accent); letter-spacing: -2px; }
+
+  .hero-meta { display: flex; gap: 2rem; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+  .hero-meta-item { text-align: center; }
+  .hero-meta-num { font-size: 1.5rem; font-weight: 700; color: var(--accent); }
+  .hero-meta-label { font-size: 0.75rem; color: var(--text2); }
+
+  /* SECTION HEADING */
+  .section-label {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 0.5rem;
+  }
+  .section-title { font-size: 1.75rem; font-weight: 700; color: #fff; margin-bottom: 2.5rem; }
+
+  /* ABOUT / PROFILE */
+  #about { background: var(--bg2); }
+  .about-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 3rem; align-items: start; }
+  .about-text { color: var(--text2); font-size: 0.95rem; }
+  .about-text p { margin-bottom: 1rem; }
+  .info-list { list-style: none; }
+  .info-list li { display: flex; flex-direction: column; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
+  .info-list li:last-child { border-bottom: none; }
+  .info-key { color: var(--text2); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 2px; }
+  .info-val { color: var(--text); font-weight: 500; }
+
+  /* EXPERIENCE */
+  #experience { background: var(--bg); }
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before {
+    content: ''; position: absolute; left: 0; top: 6px; bottom: 0;
+    width: 2px; background: var(--border);
+  }
+  .timeline-item { position: relative; margin-bottom: 2.5rem; }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -2.4rem; top: 6px;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--accent); border: 2px solid var(--bg);
+  }
+  .job-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; }
+  .job-title { font-weight: 700; font-size: 1rem; color: #fff; }
+  .job-company { color: var(--accent); font-size: 0.875rem; font-weight: 600; margin-bottom: 2px; }
+  .job-dates { font-size: 0.78rem; color: var(--text2); background: var(--bg3); padding: 3px 10px; border-radius: 100px; white-space: nowrap; }
+  .job-loc { font-size: 0.78rem; color: var(--text2); margin-bottom: 10px; }
+  .job-bullets { list-style: none; padding: 0; }
+  .job-bullets li { font-size: 0.875rem; color: var(--text2); padding: 3px 0 3px 1rem; position: relative; }
+  .job-bullets li::before { content: '›'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+
+  /* EDUCATION */
+  #education { background: var(--bg2); }
+  .edu-card {
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 1.5rem;
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem;
+  }
+  .edu-degree { font-weight: 700; font-size: 1.05rem; color: #fff; margin-bottom: 4px; }
+  .edu-uni { color: var(--accent); font-size: 0.875rem; font-weight: 600; margin-bottom: 8px; }
+  .edu-note { font-size: 0.83rem; color: var(--text2); }
+  .edu-badge {
+    background: rgba(0,212,255,0.1); color: var(--accent);
+    border: 1px solid rgba(0,212,255,0.25);
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em;
+    padding: 4px 12px; border-radius: 100px; white-space: nowrap;
+  }
+
+  /* SKILLS */
+  #skills { background: var(--bg); }
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
+  .skill-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem;
+  }
+  .skill-card-title { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent2); font-weight: 700; margin-bottom: 1rem; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag {
+    font-size: 0.78rem; padding: 4px 10px; border-radius: 6px;
+    background: var(--bg3); border: 1px solid var(--border); color: var(--text2);
+  }
+  .tag.tech { border-color: rgba(0,212,255,0.2); color: var(--accent); background: rgba(0,212,255,0.07); }
+  .tag.soft { border-color: rgba(124,111,247,0.2); color: var(--accent2); background: rgba(124,111,247,0.07); }
+
+  /* AWARDS */
+  #awards { background: var(--bg2); }
+  .awards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; }
+  .award-card {
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem 1.5rem;
+  }
+  .award-icon { width: 36px; height: 36px; border-radius: 8px; background: rgba(0,212,255,0.12); display: flex; align-items: center; justify-content: center; margin-bottom: 0.75rem; }
+  .award-icon svg { width: 18px; height: 18px; }
+  .award-title { font-size: 0.9rem; font-weight: 600; color: #fff; margin-bottom: 4px; }
+  .award-sub { font-size: 0.78rem; color: var(--text2); }
+
+  /* LANGUAGES */
+  #languages { background: var(--bg); }
+  .lang-grid { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  .lang-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem 2rem; text-align: center; min-width: 140px;
+  }
+  .lang-name { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .lang-level { font-size: 0.78rem; color: var(--accent); font-weight: 600; }
+  .lang-desc { font-size: 0.72rem; color: var(--text2); margin-top: 4px; }
+  .lang-bar { height: 4px; background: var(--bg3); border-radius: 2px; margin-top: 10px; overflow: hidden; }
+  .lang-fill { height: 100%; border-radius: 2px; background: var(--accent); }
+
+  /* CONTACT */
+  #contact {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+  }
+  .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+  .contact-title { font-size: 1.5rem; font-weight: 700; color: #fff; margin-bottom: 1rem; }
+  .contact-desc { color: var(--text2); font-size: 0.9rem; margin-bottom: 1.5rem; }
+  .contact-items { list-style: none; }
+  .contact-items li { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.875rem; color: var(--text2); }
+  .contact-items li:last-child { border-bottom: none; }
+  .contact-items li svg { flex-shrink: 0; }
+  .avail-card {
+    background: var(--bg3); border: 1px solid rgba(0,212,255,0.2);
+    border-radius: var(--radius); padding: 1.5rem;
+  }
+  .avail-title { font-size: 0.875rem; font-weight: 700; color: var(--accent); margin-bottom: 1rem; letter-spacing: 0.05em; text-transform: uppercase; }
+  .avail-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+  .day-pill { text-align: center; padding: 6px 4px; background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.2); border-radius: 6px; }
+  .day-name { font-size: 0.65rem; color: var(--accent); font-weight: 700; text-transform: uppercase; }
+  .day-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; margin: 4px auto 0; }
+
+  /* FOOTER */
+  footer { background: var(--bg); border-top: 1px solid var(--border); padding: 2rem; text-align: center; font-size: 0.8rem; color: var(--text2); }
+
+  @media (max-width: 700px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .avatar-box { display: none; }
+    .about-grid { grid-template-columns: 1fr; }
+    .contact-inner { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .hero-meta { flex-wrap: wrap; gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">MJS</div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#education">Education</a>
+    <a href="#skills">Skills</a>
+    <a href="#awards">Awards</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-tag">Available for opportunities</div>
+        <div class="hero-name">Mohtasem<br>Jahan Siddique</div>
+        <div class="hero-role">IT Graduate &amp; <span>Future Leaders Scholar</span></div>
+        <div class="hero-desc">Final-year Bachelor of Information Technology student at RMIT University, Melbourne. Trilingual with experience spanning tech, operations, property services, and entrepreneurship.</div>
+        <div class="hero-btns">
+          <a href="#contact" class="btn btn-primary">Get in touch</a>
+          <a href="#experience" class="btn btn-ghost">View experience</a>
+        </div>
+        <div class="hero-meta">
+          <div class="hero-meta-item">
+            <div class="hero-meta-num">5+</div>
+            <div class="hero-meta-label">Roles held</div>
+          </div>
+          <div class="hero-meta-item">
+            <div class="hero-meta-num">3</div>
+            <div class="hero-meta-label">Languages</div>
+          </div>
+          <div class="hero-meta-item">
+            <div class="hero-meta-num">4+</div>
+            <div class="hero-meta-label">Years entrepreneurship</div>
+          </div>
+          <div class="hero-meta-item">
+            <div class="hero-meta-num">7</div>
+            <div class="hero-meta-label">IELTS band</div>
+          </div>
+        </div>
+      </div>
+      <div class="avatar-box">
+        <div class="avatar-initials">MJS</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="section-label">About me</div>
+    <div class="section-title">Who I am</div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I'm a final-year IT student at RMIT University with a broad background that bridges technology, customer experience, and business. I've worked across retail fulfilment, property services, hospitality, and front-desk operations — building strong multitasking and leadership skills in real-world environments.</p>
+        <p>Before moving to Melbourne, I founded and ran Sneaker'X Studio BD in Dhaka — an online sneaker store where I handled everything from product curation and marketing to financial planning, growing sales by 50% year-on-year.</p>
+        <p>I'm passionate about applying IT skills to practical problems and thrive in fast-paced, team-oriented settings. I hold a Future Leaders Scholarship from RMIT and have been recognised as an Academic High Achiever by Edexcel.</p>
+      </div>
+      <ul class="info-list">
+        <li>
+          <span class="info-key">Location</span>
+          <span class="info-val">Docklands, Melbourne VIC</span>
+        </li>
+        <li>
+          <span class="info-key">Email</span>
+          <span class="info-val"><a href="mailto:siddiquesifat300@gmail.com">siddiquesifat300@gmail.com</a></span>
+        </li>
+        <li>
+          <span class="info-key">Phone</span>
+          <span class="info-val">0406 402 962</span>
+        </li>
+        <li>
+          <span class="info-key">Availability</span>
+          <span class="info-val">7 days/week, all hours</span>
+        </li>
+        <li>
+          <span class="info-key">IELTS</span>
+          <span class="info-val">Band 7 Overall (2023)</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="section-label">Career history</div>
+    <div class="section-title">Work experience</div>
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="job-header">
+          <div>
+            <div class="job-title">Team Member</div>
+            <div class="job-company">Woolworths — West Footscray Customer Fulfilment Centre</div>
+          </div>
+          <span class="job-dates">Aug 2024 – Present</span>
+        </div>
+        <ul class="job-bullets">
+          <li>Efficiently picked and packed online customer orders with accuracy and quality control.</li>
+          <li>Collaborated with team to meet daily fulfilment targets and improve workflow efficiency.</li>
+          <li>Organised orders for timely delivery and coordinated with the dispatch team.</li>
+          <li>Maintained workspace safety standards and assisted with stock management and inventory.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="job-header">
+          <div>
+            <div class="job-title">Supervisor</div>
+            <div class="job-company">Demos Property Services — Docklands, Melbourne</div>
+          </div>
+          <span class="job-dates">Jul 2024 – Present</span>
+        </div>
+        <ul class="job-bullets">
+          <li>Supervised and coordinated cleaning teams across commercial and residential properties.</li>
+          <li>Managed daily schedules, inspected work quality, and provided staff feedback.</li>
+          <li>Maintained records of cleaning supplies and compliance documentation.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="job-header">
+          <div>
+            <div class="job-title">Concierge</div>
+            <div class="job-company">Piccolo House — Fitzroy, Melbourne</div>
+          </div>
+          <span class="job-dates">Dec 2025 – Feb 2026</span>
+        </div>
+        <ul class="job-bullets">
+          <li>Primary front-desk representative managing resident enquiries and daily assistance.</li>
+          <li>Coordinated maintenance/cleaning teams via BuildingLink; managed parcels via Groundfloor app.</li>
+          <li>Maintained accurate records of building activities, service requests, and communications.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="job-header">
+          <div>
+            <div class="job-title">Crew Member</div>
+            <div class="job-company">McDonald's — Melbourne CBD</div>
+          </div>
+          <span class="job-dates">Apr 2024 – Aug 2024</span>
+        </div>
+        <ul class="job-bullets">
+          <li>Delivered excellent customer service including drive-thru support.</li>
+          <li>Prepared food orders to McDonald's quality and hygiene standards; managed stock to minimise waste.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="job-header">
+          <div>
+            <div class="job-title">Teacher Assistant</div>
+            <div class="job-company">Academia School — Dhaka, Bangladesh</div>
+          </div>
+          <span class="job-dates">Jan 2021 – Oct 2021</span>
+        </div>
+        <ul class="job-bullets">
+          <li>Supported lead teachers in classroom delivery and administrative tasks.</li>
+          <li>Facilitated communication between teachers, students, and parents.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="job-header">
+          <div>
+            <div class="job-title">Founder &amp; Owner</div>
+            <div class="job-company">Sneaker'X Studio BD — Dhaka, Bangladesh</div>
+          </div>
+          <span class="job-dates">Sep 2019 – Dec 2023</span>
+        </div>
+        <ul class="job-bullets">
+          <li>Launched and ran a full-scale online sneaker business covering product, logistics, and customer service.</li>
+          <li>Social media strategies delivered a 35% follower growth and 50% sales increase year-on-year.</li>
+          <li>Managed budgeting, pricing, inventory, and brand partnerships for sustainable growth.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="container">
+    <div class="section-label">Academic background</div>
+    <div class="section-title">Education</div>
+    <div class="edu-card">
+      <div>
+        <div class="edu-degree">Bachelor of Information Technology</div>
+        <div class="edu-uni">RMIT University, Melbourne, Australia</div>
+        <div class="edu-note">Currently in final year &nbsp;·&nbsp; March 2024 – Present</div>
+      </div>
+      <div class="edu-badge">Future Leaders Scholar 2024</div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="section-label">Capabilities</div>
+    <div class="section-title">Skills</div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-card-title">Technical / IT</div>
+        <div class="skill-tags">
+          <span class="tag tech">Java</span>
+          <span class="tag tech">SQLite</span>
+          <span class="tag tech">Microsoft Excel</span>
+          <span class="tag tech">Microsoft Office</span>
+          <span class="tag tech">PowerPoint</span>
+          <span class="tag tech">Adobe Lightroom</span>
+          <span class="tag tech">Database Administration</span>
+          <span class="tag tech">Robotics Design</span>
+          <span class="tag tech">Telecommunications</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-title">Professional</div>
+        <div class="skill-tags">
+          <span class="tag">Customer Service</span>
+          <span class="tag">Sales</span>
+          <span class="tag">Event Management</span>
+          <span class="tag">Inventory Management</span>
+          <span class="tag">Team Supervision</span>
+          <span class="tag">Customer Demand Planning</span>
+          <span class="tag">Kitchen Operations</span>
+          <span class="tag">Housekeeping</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-title">Soft skills</div>
+        <div class="skill-tags">
+          <span class="tag soft">Leadership</span>
+          <span class="tag soft">Communication</span>
+          <span class="tag soft">Multitasking</span>
+          <span class="tag soft">Team Collaboration</span>
+          <span class="tag soft">Problem Solving</span>
+          <span class="tag soft">Dedication</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AWARDS -->
+<section id="awards">
+  <div class="container">
+    <div class="section-label">Recognition</div>
+    <div class="section-title">Awards &amp; achievements</div>
+    <div class="awards-grid">
+      <div class="award-card">
+        <div class="award-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#00d4ff" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <div class="award-title">Future Leaders Scholarship</div>
+        <div class="award-sub">RMIT University · 2024</div>
+      </div>
+      <div class="award-card">
+        <div class="award-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#00d4ff" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+        </div>
+        <div class="award-title">Academic High Achiever</div>
+        <div class="award-sub">Edexcel · 7 A*/A grades</div>
+      </div>
+      <div class="award-card">
+        <div class="award-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#00d4ff" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+        </div>
+        <div class="award-title">Academic Achiever Award</div>
+        <div class="award-sub">Daily Star · 7 A*/A grades</div>
+      </div>
+      <div class="award-card">
+        <div class="award-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#00d4ff" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="award-title">IELTS Band 7</div>
+        <div class="award-sub">Speaking 7 · Reading 7 · Writing 6.5 · Listening 6 · 2023</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LANGUAGES -->
+<section id="languages">
+  <div class="container">
+    <div class="section-label">Communication</div>
+    <div class="section-title">Languages</div>
+    <div class="lang-grid">
+      <div class="lang-card">
+        <div class="lang-name">English</div>
+        <div class="lang-level">C2 — Proficient</div>
+        <div class="lang-desc">IELTS Band 7</div>
+        <div class="lang-bar"><div class="lang-fill" style="width:100%"></div></div>
+      </div>
+      <div class="lang-card">
+        <div class="lang-name">Bengali</div>
+        <div class="lang-level">C2 — Native</div>
+        <div class="lang-desc">First language</div>
+        <div class="lang-bar"><div class="lang-fill" style="width:100%"></div></div>
+      </div>
+      <div class="lang-card">
+        <div class="lang-name">Hindi</div>
+        <div class="lang-level">B2 — Upper intermediate</div>
+        <div class="lang-desc">Conversational fluency</div>
+        <div class="lang-bar"><div class="lang-fill" style="width:72%"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-label">Let's connect</div>
+    <div class="section-title">Get in touch</div>
+    <div class="contact-inner">
+      <div>
+        <div class="contact-desc">Open to graduate IT roles, part-time positions, and any opportunities across Melbourne. Feel free to reach out any day of the week.</div>
+        <ul class="contact-items">
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00d4ff" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <a href="mailto:siddiquesifat300@gmail.com">siddiquesifat300@gmail.com</a>
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00d4ff" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .82h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.17a16 16 0 006.29 6.29l1.41-1.41a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            0406 402 962
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00d4ff" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            118 Dudley St, Docklands, Melbourne VIC 3003
+          </li>
+        </ul>
+      </div>
+      <div class="avail-card">
+        <div class="avail-title">Weekly availability</div>
+        <div class="avail-grid">
+          <div class="day-pill"><div class="day-name">Mon</div><div class="day-dot"></div></div>
+          <div class="day-pill"><div class="day-name">Tue</div><div class="day-dot"></div></div>
+          <div class="day-pill"><div class="day-name">Wed</div><div class="day-dot"></div></div>
+          <div class="day-pill"><div class="day-name">Thu</div><div class="day-dot"></div></div>
+          <div class="day-pill"><div class="day-name">Fri</div><div class="day-dot"></div></div>
+          <div class="day-pill"><div class="day-name">Sat</div><div class="day-dot"></div></div>
+          <div class="day-pill"><div class="day-name">Sun</div><div class="day-dot"></div></div>
+        </div>
+        <div style="margin-top:1rem; font-size:0.78rem; color:var(--text2);">Available all day &amp; overnight every day. Happy to adjust to role requirements.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Mohtasem Jahan Siddique &nbsp;·&nbsp; Melbourne, VIC &nbsp;·&nbsp; Built with care</p>
+</footer>
+
+</body>
+</html>
